@@ -13,7 +13,7 @@ function OderStatus(){
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerHeader_Text}>
-                    <Text style={styles.containerHeader_Title}>OderStatus</Text>
+                    <Text style={styles.containerHeader_Title}>Oder Status</Text>
                 </View>
             </View>
             <View style={styles.containerBody}>
