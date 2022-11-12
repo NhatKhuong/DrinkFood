@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView,TextInput,TouchableOpacity } from 'react-native'
+import { View, Text, Image, SafeAreaView,TextInput,TouchableOpacity, TouchableHighlight } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
@@ -7,10 +7,10 @@ import { EvilIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 
-export default function Home() {
+export default function Home({navigation}) {
     const [items, setItems] = useState([
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
-        { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
+        { img:require("../images/coffe2.webp"),descrip:"with chocolate",name: 'Trung Nguyen',price:22.22},
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
@@ -58,8 +58,8 @@ export default function Home() {
             style={{marginTop: 10, backgroundColor:"#000", height:400}}
             spacing={10}
             renderItem={({ item }) => (
-                <View>
-                    <Image style={{width:150, height:150, borderRadius:10}} source={item.img}/>
+                <TouchableOpacity onPress={()=>navigation.navigate('Detail',{img:item.img,name:item.name})}>
+                    <Image style={{width:150, height:150, borderRadius:10,resizeMode: 'stretch'}} source={item.img}/>
                     <Text style={{fontSize:16, fontWeight:"bold"}}>{item.name}</Text>
                     <Text  style={{color:"#c67c4e", fontSize:14}}>{item.descrip}</Text>
                     <View style={{display:"flex", flexDirection:"row", width:150, justifyContent:"space-between"}}>
@@ -67,7 +67,7 @@ export default function Home() {
                         <Image style={{width:20, height:20, borderRadius:5}} source={require("../images/btnadd.png")} />
                     </View>
                     
-                </View>
+                </TouchableOpacity>
             )}
             />
     </SafeAreaView>

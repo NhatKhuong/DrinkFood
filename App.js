@@ -12,7 +12,7 @@ export default function App() {
           <Stack.Navigator initialRouteName={'OderStatus'} screenOptions={{headerShown:false}}>
               {/* <Stack.Screen name='OderStatus' component={OderStatus}/>
               <Stack.Screen name='OderManager' component={OderManager}/> */}
-              {/* <Stack.Screen name='Home' component={Home}/> */}
+              <Stack.Screen name='Home' component={Home}/>
               <Stack.Screen name='Detail' component={Detail}/>
 
               

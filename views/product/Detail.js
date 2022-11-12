@@ -4,9 +4,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons'; 
+import {useRoute } from '@react-navigation/native';
+import { useState,useEffect } from 'react';
 
 
 export default function Detail() {
+  const route = useRoute();
+  const [img, setImg] = useState()
+  const [name, setName] = useState()
+
+  useEffect(() => {
+    if (route.params != null){
+      setName(route.params.name)
+      setImg(route.params.img)
+    }
+  });
   return (
     <View style={{paddingTop:30, backgroundColor:"#000", paddingLeft:15, paddingRight:15}}>
       <View style={{display:'flex',flexDirection:'row', justifyContent:'space-between'}}>
@@ -19,7 +31,7 @@ export default function Detail() {
         </View>
       </View>
       <View>
-        <Image style={{height:350, width:"100%"}} source={require('../../images/bgk.png')}></Image>
+        <Image style={{height:350, width:"100%",resizeMode: 'stretch'}} source={img}></Image>
       </View>
       <View style={{width:"100%", alignItems:"center"}}>
         <View style={{display:"flex", flexDirection:"row"}}>
@@ -44,7 +56,7 @@ export default function Detail() {
         </TouchableOpacity>
       </View>
       <View style={{marginTop:20, height:190}}>
-        <Text style={{fontSize:16, color:"#fff"}}>Coffe Trung Nguyên</Text>
+        <Text style={{fontSize:16, color:"#fff"}}>{name}</Text>
         <Text style={{color:"#fff"}}>Cafe Trung Nguyên Sáng tạo 8  được chọn lọc từ những hạt cà phê ngon nhất của Việt Nam.Là sản phẩm siêu sạch và tuyệt ngon cho những ai là tín đồ của cà phê. Cafe Trung Nguyên Sáng tạo 8  được chọn lọc từ những hạt cà phê ngon nhất của Việt Nam.Là sản phẩm siêu sạch và tuyệt ngon cho những ai là tín đồ của cà phê.</Text>
       </View>
       <View style={{marginTop:20, display:'flex',flexDirection:'row', justifyContent:'space-between'}}>
