@@ -4,6 +4,8 @@ import Home from './views/Home';
 import OderManager from './views/order/OderManager';
 import OderStatus from './views/order/OderStatus';
 import Detail from './views/product/Detail';
+import Login from './views/auth/Login';
+import Register from './views/auth/Register';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -14,7 +16,8 @@ export default function App() {
               <Stack.Screen name='OderManager' component={OderManager}/> */}
               {/* <Stack.Screen name='Home' component={Home}/> */}
               <Stack.Screen name='Detail' component={Detail}/>
-
+              <Stack.Screen name='Login' component={Login}/>
+              <Stack.Screen name='Register' component={Register}/>
               
           </Stack.Navigator>
       </NavigationContainer>
