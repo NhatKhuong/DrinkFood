@@ -7,6 +7,7 @@ export default function CartItem(props) {
   const [isRemove, setIsRemove] = useState(false);
   const [amount, setAmount] = useState(1);
   const price = props.priceItem;
+  const id = props.id;
 
   return !isRemove ? (
     <View style={{ paddingBottom: 20 }}>
@@ -27,9 +28,13 @@ export default function CartItem(props) {
             <TouchableOpacity
               style={styles.touchableOpacityUpDown}
               onPress={() => {
-                setAmount(amount - 1);
-                props.onPressMinus(price, props.id, amount - 1);
-                if (amount < 1) setIsRemove(true);
+                if (amount > 1) {
+                  setAmount(amount - 1);
+                  props.onPressMinus(price, id, amount - 1);
+                } else {
+                  props.onPressMinus(price, id, amount - 1);
+                  setIsRemove(true);
+                }
               }}
             >
               <Entypo name="minus" size={10} color="black" />
@@ -40,7 +45,7 @@ export default function CartItem(props) {
                 if (amount >= 10) Alert.alert("Vượt quá số lượng cho phép");
                 else {
                   setAmount(amount + 1);
-                  props.onPressPlush(price, props.id, amount + 1);
+                  props.onPressPlush(price, id, amount + 1);
                 }
               }}
             >

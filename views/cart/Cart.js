@@ -13,33 +13,45 @@ import { NativeBaseProvider, FlatList } from "native-base";
 import data from "./data/CartData";
 export default function Cart(props) {
   const [subTotal, setSubTotal] = useState(0);
+  const [listData, setListData] = useState([]);
   const freeDelivery = 50;
-  let listData = [];
-  let total = 0;
-
-  data.map((item) => {
-    total += item.priceItem;
-    listData.push({
-      id: item.id,
-      amount: 1,
-      descriptions: item.descriptions,
-      productName: item.productName,
-      price: item.priceItem,
-    });
-  });
 
   useEffect(() => {
-    setSubTotal(total);
+    let temp = 0;
+    data.map((item) => {
+      temp += item.priceItem;
+      setListData((list) => [
+        ...list,
+        {
+          id: item.id,
+          amount: 1,
+          descriptions: item.descriptions,
+          productName: item.productName,
+          price: item.priceItem,
+        },
+      ]);
+    });
+    setSubTotal(temp);
   }, []);
 
-  const plushTotal = (price, index, amount) => {
+  const plushTotal = (price, id, amount) => {
+    const index = listData.findIndex((obj) => {
+      return obj.id === id;
+    });
     setSubTotal(subTotal + price);
     listData[index].amount = amount;
   };
 
-  const minusTotal = (price, index, amount) => {
+  const minusTotal = (price, id, amount) => {
+    const index = listData.findIndex((obj) => {
+      return obj.id === id;
+    });
     setSubTotal(subTotal - price);
-    listData[index].amount = amount;
+    if (amount != 0) listData[index].amount = amount;
+    else {
+      // setListData([...listData.slice(0, index), ...listData.slice(index + 1)]);
+      setListData(listData.filter((item) => item.id !== id));
+    }
   };
 
   return (
@@ -47,7 +59,7 @@ export default function Cart(props) {
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={"#ffff"} barStyle={"dark-content"} />
         <View style={styles.header}>
-          <TouchableOpacity style={styles.touchableOpacityBack} onPress={()=>props.navigation.navigate('Detail')}>
+          <TouchableOpacity style={styles.touchableOpacityBack}>
             <Ionicons name="arrow-back-sharp" size={22} color="black" />
           </TouchableOpacity>
           <Text style={styles.textHeader}>My cart</Text>

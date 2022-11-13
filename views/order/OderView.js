@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "react-native";
 import styles from "./styles/OderView_Styles";
-import data from "../cart/data/CartData";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
@@ -44,14 +43,10 @@ export default function OderView(props) {
             return (
               <View style={{ paddingBottom: 10 }}>
                 <View style={styles.itemOrder}>
-                  <Text style={styles.amount}>1</Text>
+                  <Text style={styles.amount}>{item.amount}</Text>
                   <View style={styles.infoItem}>
-                    <Text style={styles.nameProduct}>
-                      {data[0].productName}
-                    </Text>
-                    <Text style={styles.descriptions}>
-                      {data[0].descriptions}
-                    </Text>
+                    <Text style={styles.nameProduct}>{item.productName}</Text>
+                    <Text style={styles.descriptions}>{item.descriptions}</Text>
                   </View>
                   <Text style={styles.textPrice}>
                     <MaterialCommunityIcons
@@ -113,7 +108,7 @@ export default function OderView(props) {
             <Text style={styles.textDetail}>Promo code</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContinue} onPress={()=>props.navigation.navigate('OderStatus')}>
+          <TouchableOpacity style={styles.buttonContinue}>
             <Text style={styles.textContinue}>Continue</Text>
           </TouchableOpacity>
         </View>
