@@ -42,13 +42,13 @@ export default function Home({navigation}) {
         </View>
       </View>
       <View style={{marginTop:20,display:"flex", justifyContent:"space-between", flexDirection:"row"}}>
-        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff", borderWidth:1,alignItems:"center", justifyContent:"center"}}>
+        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff",alignItems:"center", justifyContent:"center"}}>
             <Text style={{color:"#fff", fontSize:16, fontWeight:'bold'}}>All</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff", borderWidth:1,alignItems:"center", justifyContent:"center"}}>
+        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff",alignItems:"center", justifyContent:"center"}}>
             <Text style={{color:"#fff", fontSize:16, fontWeight:'bold'}}>Fast Food</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff", borderWidth:1,alignItems:"center", justifyContent:"center"}}>
+        <TouchableOpacity style={{backgroundColor:"#2cc167", width:80,height:35, borderRadius:5, borderColor:"#fff",alignItems:"center", justifyContent:"center"}}>
             <Text style={{color:"#fff", fontSize:16, fontWeight:'bold'}}>Drink</Text>
         </TouchableOpacity>
       </View>

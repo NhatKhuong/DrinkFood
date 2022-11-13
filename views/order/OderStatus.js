@@ -2,13 +2,13 @@ import {  Text, View,Image, SafeAreaView,TouchableOpacity} from 'react-native';
 import styles from "./styles/OderStatus_Styles"
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-function OderStatus(){
+function OderStatus({navigation}){
     
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.containerHeader}>
-                <View style={{marginLeft:20,}} >
-                    <TouchableOpacity style={styles.buttonLeft}>
+                <View style={{marginLeft:20}} >
+                    <TouchableOpacity style={styles.buttonLeft} onPress={()=>navigation.navigate('OderView')}>
                         <AntDesign name="arrowleft" size={28} color="black" />
                     </TouchableOpacity>
                 </View>
@@ -68,7 +68,7 @@ function OderStatus(){
                 </View>
             </View>
             <View style={styles.containerFooter}>
-                <TouchableOpacity style={styles.buttonConfirm}>
+                <TouchableOpacity style={styles.buttonConfirm} onPress={()=>navigation.navigate("OderManager")}>
                     <View style={{justifyContent:'center',alignContent:'center'}}>
                         <Text style={{fontSize:22,color:'white'}}>Confirm Delivery</Text>
                     </View>

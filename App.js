@@ -6,19 +6,22 @@ import OderStatus from './views/order/OderStatus';
 import Detail from './views/product/Detail';
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
+import Cart from "./views/cart/Cart";
+import OderView from "./views/order/OderView";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
       <NavigationContainer>
-          <Stack.Navigator initialRouteName={'OderStatus'} screenOptions={{headerShown:false}}>
-              {/* <Stack.Screen name='OderStatus' component={OderStatus}/>
-              <Stack.Screen name='OderManager' component={OderManager}/> */}
+          <Stack.Navigator initialRouteName={'Home'} screenOptions={{headerShown:false}}>
               <Stack.Screen name='Home' component={Home}/>
               <Stack.Screen name='Detail' component={Detail}/>
               <Stack.Screen name='Login' component={Login}/>
               <Stack.Screen name='Register' component={Register}/>
-              
+              <Stack.Screen name='Cart' component={Cart}/>
+              <Stack.Screen name='OderView' component={OderView}/>
+              <Stack.Screen name='OderStatus' component={OderStatus}/>
+              <Stack.Screen name='OderManager' component={OderManager}/>
           </Stack.Navigator>
       </NavigationContainer>
     );

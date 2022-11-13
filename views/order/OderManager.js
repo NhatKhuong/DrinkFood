@@ -2,7 +2,7 @@ import {Text, View,Image, SafeAreaView,TouchableOpacity, FlatList} from 'react-n
 import styles from './styles/OderManager_Styles';
 import { AntDesign } from '@expo/vector-icons';
 import data from './data/OrderManager_Data';
-function OderManager(){
+function OderManager({navigation}){
     const renderItem = ({item})=>{
         return (
             <TouchableOpacity style={styles.containerListItem}>
@@ -33,8 +33,8 @@ function OderManager(){
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.containerHeader}>
-                <View style={{marginLeft:20,}} >
-                    <TouchableOpacity style={styles.buttonLeft}>
+                <View style={{marginLeft:20,}}>
+                    <TouchableOpacity style={styles.buttonLeft} onPress={()=>navigation.navigate('OderStatus')}>
                         <AntDesign name="arrowleft" size={28} color="black" />
                     </TouchableOpacity>
                 </View>

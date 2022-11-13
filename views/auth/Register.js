@@ -82,7 +82,7 @@ export default function Register() {
           }}>
           <Image
             style={{ width: 30, height: 30, marginLeft: 10 }}
-            source={require('./Images/face_logo.jpg')}
+            source={require('./images/face_logo.jpg')}
           />
           <Text style={{ color: 'white', marginLeft: 35 }}>
             CONNECT WITH FACEBOOK
@@ -101,7 +101,7 @@ export default function Register() {
           }}>
           <Image
             style={{ width: 30, height: 30, marginLeft: 10 }}
-            source={require('./Images/logo_google.png')}
+            source={require('./images/logo_google.png')}
           />
           <Text style={{ color: 'white', marginLeft: 35 }}>
             CONNECT WITH GOOGLE
