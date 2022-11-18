@@ -9,7 +9,7 @@ function OderStatus({navigation}){
             <View style={styles.containerHeader}>
                 <View style={{marginLeft:20}} >
                     <TouchableOpacity style={styles.buttonLeft} onPress={()=>navigation.navigate('OderView')}>
-                        <AntDesign name="arrowleft" size={28} color="black" />
+                        <AntDesign name="arrowleft" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerHeader_Text}>
@@ -23,11 +23,11 @@ function OderStatus({navigation}){
                 <View style={styles.containerBody_Status}>
                     <View style={styles.containerBody_Status_Item}>
                         <View style={styles.containerBody_Status_ItemIcon}>
-                            <AntDesign name="checkcircleo" size={24} color="white" />
+                            <AntDesign name="checkcircleo" size={24} color="#000" />
                         </View>
                         <View style={styles.containerBody_Status_ItemText}>
-                            <Text style={{fontSize:22,color:'white'}}>Delivered</Text>
-                            <Text style={{fontSize:16,color:'white'}}>Drinks, June 07, 6:20 PM</Text>
+                            <Text style={{fontSize:22,color:'#000'}}>Delivered</Text>
+                            <Text style={{fontSize:16,color:'#000'}}>Drinks, June 07, 6:20 PM</Text>
                         </View>
                     </View>
                     <View style={styles.containerBody_Status_ItemStatus}>
@@ -35,7 +35,7 @@ function OderStatus({navigation}){
                             <View style={styles.containerBody_Status_ItemIcon}>
                             </View>
                             <View style={styles.containerBody_Status_ItemText}>
-                                <Text style={{fontSize:22,color:'black'}}>Order Recevied</Text>
+                                <Text style={{fontSize:22,color:'#fff'}}>Order Recevied</Text>
                                 <View style={styles.containerBody_Status_ItemText_View}>
                                     <Feather name="clock" size={20} color="#669933" style={{marginRight:10,}} />
                                     <Text style={{fontSize:16,color:'#999999'}}>5:48 PM, 07 June 2022</Text>
@@ -46,7 +46,7 @@ function OderStatus({navigation}){
                             <View style={styles.containerBody_Status_ItemIcon}>
                             </View>
                             <View style={styles.containerBody_Status_ItemText}>
-                                <Text style={{fontSize:22,color:'black'}}>On The Way</Text>
+                                <Text style={{fontSize:22,color:'#fff'}}>On The Way</Text>
                                 <View style={styles.containerBody_Status_ItemText_View}>
                                     <Feather name="clock" size={20} color="#669933" style={{marginRight:10,}} />
                                     <Text style={{fontSize:16,color:'#999999'}}>5:55 PM, 07 June 2022</Text>
@@ -57,7 +57,7 @@ function OderStatus({navigation}){
                             <View style={styles.containerBody_Status_ItemIcon}>
                             </View>
                             <View style={styles.containerBody_Status_ItemText}>
-                                <Text style={{fontSize:22,color:'black'}}>Delivered</Text>
+                                <Text style={{fontSize:22,color:'#fff'}}>Delivered</Text>
                                 <View style={styles.containerBody_Status_ItemText_View}>
                                     <Feather name="clock" size={20} color="#669933" style={{marginRight:10,}} />
                                     <Text style={{fontSize:16,color:'#999999'}}>Finish Time in 25 Min</Text>
@@ -70,7 +70,7 @@ function OderStatus({navigation}){
             <View style={styles.containerFooter}>
                 <TouchableOpacity style={styles.buttonConfirm} onPress={()=>navigation.navigate("OderManager")}>
                     <View style={{justifyContent:'center',alignContent:'center'}}>
-                        <Text style={{fontSize:22,color:'white'}}>Confirm Delivery</Text>
+                        <Text style={{fontSize:22,color:'#000'}}>Confirm Delivery</Text>
                     </View>
                 </TouchableOpacity>
             </View>
