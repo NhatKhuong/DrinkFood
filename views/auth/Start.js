@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 
-export default function Start() {
+function Start() {
   return (
     <View style={styles.wrapper}>
       <Text>Login</Text>
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffe4c4',
     width:'100%',
     height:500,
-    alignItems:'center'
+    alignItems:'center',
+    justifyContent:'center'
   },
   btn_start: {
     backgroundColor:'#22a45d',
@@ -39,3 +40,4 @@ const styles = StyleSheet.create({
   }
 })
 // Khoa
+export default Start;

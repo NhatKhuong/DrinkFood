@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,65 @@ import {
   TouchableOpacity,
   SafeAreaView,
   TextInput,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {initializeApp} from 'firebase/app';
+import {firebaseConfig} from '../../config/firebase_config';
+import {initializeAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import { useNavigation } from '@react-navigation/native';
 
 export default function Register() {
+  const navigation = useNavigation();
+  const [email,setEmail] = useState("");
+  const [passWord,setPassWord] = useState("");
+  const [passWordAgain,setPassWordAgain] = useState("");
+  const hanldPress = () =>{
+    navigation.navigate("Login");
+  }
+  const app = initializeApp(firebaseConfig);
+  const auth = initializeAuth(app,{
+  });
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const hanldPressRegister = ()=>{
+    if(email == ""){
+        Alert.alert("Thông báo","Email không được rỗng")
+    }
+    else {
+        if(!regexEmail.test(email)&& passWord == passWordAgain || !regexEmail.test(email)&& passWord != passWordAgain){
+            Alert.alert("Thông báo","Email không hợp lệ")
+        }
+        else if(regexEmail.test(email) && passWord != passWordAgain) {
+            Alert.alert("Thông báo","Mật khẩu xác nhận không giống với mật khẩu trên")
+        }
+        else if(regexEmail.test(email) && passWord == "") {
+            Alert.alert("Thông báo","Mời bạn nhập mật khẩu")
+        }
+        else 
+        {
+            createUserWithEmailAndPassword(auth,email,passWord)
+            .then(()=>{
+              signInWithEmailAndPassword(auth,email,passWord)
+              .then(()=>{
+                  Alert.alert("Thông báo", "Đăng ký thành công");
+                  const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
+                  console.log(accessToken);
+                  setEmail("");
+                  setPassWord("");
+                  setPassWordAgain("");
+                  navigation.navigate("Home");
+              })
+                
+            })
+            .catch(error =>{
+                Alert.alert("Thông báo","Email đã tồn tại")
+            })
+        }
+        
+        
+    }
+}
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -31,19 +86,19 @@ export default function Register() {
           <Text style={{ color: 'black', paddingLeft: 10 }}>
             for sign up, Or
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={hanldPress}>
             <Text style={{ color: '#22a45d' }}> Already have Account?</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.formRegis}>
-        <TextInput style={styles.iptName} placeholder="Full Name" />
-        <TextInput style={styles.iptAcc} placeholder="Email Address" />
-        <TextInput style={styles.iptPass} placeholder="Password" />
+        <TextInput onChangeText={x=>setEmail(x)} value={email} style={styles.iptName} placeholder="Email Address" />
+        <TextInput onChangeText={x=>setPassWord(x)} value={passWord} secureTextEntry={true} style={styles.iptAcc} placeholder="Password" />
+        <TextInput onChangeText={x=>setPassWordAgain(x)} value={passWordAgain} secureTextEntry={true} style={styles.iptPass} placeholder="Password Again" />
       </View>
 
       <View style={{ alignItems: 'center', marginTop: 15 }}>
-        <TouchableOpacity
+        <TouchableOpacity onPress={hanldPressRegister}
           style={{
             backgroundColor: '#22a45d',
             width: '90%',
@@ -57,7 +112,7 @@ export default function Register() {
 
       <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 80 }}>
         <Text style={{ color: 'black' }}>Already have account?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={hanldPress}>
           <Text
             style={{
               marginLeft: 10,
