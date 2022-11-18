@@ -7,23 +7,20 @@ function OderManager({navigation}){
         return (
             <TouchableOpacity style={styles.containerListItem}>
                 <View style={styles.containerListItem_Image}>
-                    <Image source={item.imageShop} style={{height:100,width:100,borderRadius:20,}}/>
+                    <Image source={item.imageShop} style={{height:80,width:80,borderRadius:20,}}/>
                 </View>
                 <View style={styles.containerListItem_Text}>
                     <View style={styles.containerListItem_Text_ItemTitle}>
-                        <Text style={{fontSize:28,}}>{item.shopName}</Text>
-                    </View>
-                    <View style={styles.containerListItem_Text_ItemBody}>
-                        <Text style={{fontSize:18,marginTop:5,color:"#777777"}}>Address: {item.addressShop}</Text>
+                        <Text style={{fontSize:28,color:"white",fontWeight:"600"}}>{item.shopName}</Text>
                     </View>
                     <View style={styles.containerListItem_Text_ItemBottom}>
                         <View style={{display:'flex',flexDirection:"row", alignItems:'center'}}>
-                            <Text style={{fontSize:18,marginTop:5,color:"#339900",marginRight:5,fontWeight:'bold'}}>Ratting: {item.ratting}</Text>
+                            <Text style={{fontSize:18,marginTop:5,color:"#fff",marginRight:5,fontWeight:'bold'}}>Ratting: {item.ratting}</Text>
                             <AntDesign name="star" size={14} color="#FFCC33" />
                         </View>
                         <View  style={{display:'flex',flexDirection:"row", alignItems:'center'}}>
-                            <Text style={{fontSize:18,marginTop:5,color:"#339900",marginRight:5,fontWeight:'bold'}}>Cost: </Text>
-                            <Text style={{fontSize:18,marginTop:5,color:"#339900",marginRight:5,fontWeight:'bold'}}>{item.priceOrder} $</Text>
+                            <Text style={{fontSize:18,marginTop:5,color:"#fff",marginRight:5,fontWeight:'bold'}}>Cost: </Text>
+                            <Text style={{fontSize:18,marginTop:5,color:"#fff",marginRight:5,fontWeight:'bold'}}>{item.priceOrder} $</Text>
                         </View>
                     </View>
                 </View>
@@ -35,7 +32,7 @@ function OderManager({navigation}){
             <View style={styles.containerHeader}>
                 <View style={{marginLeft:20,}}>
                     <TouchableOpacity style={styles.buttonLeft} onPress={()=>navigation.navigate('OderStatus')}>
-                        <AntDesign name="arrowleft" size={28} color="black" />
+                        <AntDesign name="arrowleft" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerHeader_Text}>

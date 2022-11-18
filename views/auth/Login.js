@@ -43,6 +43,7 @@ export default function Login() {
            console.log(accessToken);
            setEmail("");
            setPassWord("");
+           navigation.navigate("Home");
         })
         .catch(error =>{
             Alert.alert("Thông báo","Xảy ra lỗi! \n Mời bạn nhập lại tài khoản và mật khẩu")

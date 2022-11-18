@@ -1,5 +1,5 @@
-import { View, Text, Image, SafeAreaView,TextInput,TouchableOpacity, TouchableHighlight } from 'react-native'
-import React from 'react'
+import { View, Text, Image, SafeAreaView,TextInput,TouchableOpacity, TouchableHighlight, Animated } from 'react-native'
+import React, { Component, useRef } from 'react'
 import { Ionicons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
@@ -15,15 +15,67 @@ export default function Home({navigation}) {
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
       ]);
+      const amin = useRef(new Animated.Value(0)).current;
+      const rotation = amin.interpolate({
+        inputRange:[-1,1],
+        outputRange:["-20deg","20deg"]
+    });
+    const hanldMove = ()=>{
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(amin,{
+              toValue:-1,
+              duration:100,
+              useNativeDriver: true,
+              delay:1000,
+          }),
+          Animated.timing(amin,{
+              toValue:1,
+              duration:100,
+              useNativeDriver: true
+          }),
+          Animated.timing(amin,{
+              toValue:-1,
+              duration:100,
+              useNativeDriver: true
+          }),
+          Animated.timing(amin,{
+              toValue:1,
+              duration:100,
+              useNativeDriver: true
+          }),
+          Animated.timing(amin,{
+              toValue:-1,
+              duration:100,
+              useNativeDriver: true
+          }),
+          Animated.timing(amin,{
+              toValue:1,
+              duration:100,
+              useNativeDriver: true
+          }),
+          Animated.timing(amin,{
+              toValue:0,
+              duration:100,
+              useNativeDriver: true
+          }),
+      ]),{
+        iterations:10,
+      }
+      ).start();
+    }
+    hanldMove();
   return (
     <SafeAreaView style={{flex:1, backgroundColor:"#000", paddingTop:55, paddingLeft:15, paddingRight:15}}>
       <View style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
         <View style={{borderWidth:1, borderRadius:5, borderColor:"#fff"}}>
             <Ionicons name="menu-outline" size={24} color="#fff" />
         </View>
-        <View>
-            <AntDesign name="bells" size={24} color="#fff" />
-        </View>
+        <TouchableOpacity onPress={hanldMove}>
+          <Animated.View  style={{width:50,justifyContent:'center',alignItems:'center',transform:[{rotate:rotation}],}}>
+              <AntDesign name="bells" size={28} color="#fff" />
+          </Animated.View>
+        </TouchableOpacity>
       </View>
       <View style={{marginTop:20}}>
         <Text style={{fontSize:25, width:200, color:"#2cc167", fontWeight:"bold"}}>Fast and Delicious Food</Text>

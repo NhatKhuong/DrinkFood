@@ -5,7 +5,7 @@ import { StatusBar } from "react-native";
 import styles from "./styles/OderView_Styles";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native";
 export default function OderView(props) {
   let [listData, setListData] = useState([]);
@@ -19,6 +19,10 @@ export default function OderView(props) {
       setFreeDelivery(route.params.freeDelivery);
     }
   });
+  const navigation = useNavigation();
+  const hanldPress=()=>{
+    navigation.navigate("OderStatus");
+  }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"#ffff"} />
@@ -108,7 +112,7 @@ export default function OderView(props) {
             <Text style={styles.textDetail}>Promo code</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContinue}>
+          <TouchableOpacity onPress={hanldPress} style={styles.buttonContinue}>
             <Text style={styles.textContinue}>Continue</Text>
           </TouchableOpacity>
         </View>
