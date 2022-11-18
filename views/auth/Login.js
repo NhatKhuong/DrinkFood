@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,47 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useNavigation } from '@react-navigation/native';
+import {initializeApp} from 'firebase/app';
+import {firebaseConfig} from '../../config/firebase_config';
+import {initializeAuth,signInWithEmailAndPassword} from 'firebase/auth';
 export default function Login() {
+  const navigation = useNavigation();
+  const [email,setEmail] = useState("");
+    const [passWord,setPassWord] = useState("");
+  const hanldPress = () =>{
+    navigation.navigate("Register");
+  }
+  const app = initializeApp(firebaseConfig);
+    const auth = initializeAuth(app,{
+    });
+  const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const hanldPressLogin = ()=>{
+      if(email == ""){
+        Alert.alert("Thông báo","Email không được rỗng")
+      }
+      else if(!regexEmail.test(email)){
+        Alert.alert("Thông báo","Email không đúng định dạng")
+      }
+      else if(passWord == ""){
+        Alert.alert("Thông báo","Password không được rỗng");
+      }
+      else{
+        signInWithEmailAndPassword(auth,email,passWord)
+        .then(()=>{
+            const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
+           console.log(accessToken);
+           setEmail("");
+           setPassWord("");
+        })
+        .catch(error =>{
+            Alert.alert("Thông báo","Xảy ra lỗi! \n Mời bạn nhập lại tài khoản và mật khẩu")
+        })
+      }
+    }
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.header}>
@@ -31,14 +68,14 @@ export default function Login() {
         </Text>
         <View style={{flexDirection:'row'}}>
         <Text style={{ color: 'black', paddingLeft: 10 }}>for sign in, Or</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={hanldPress}>
           <Text style={{ color: '#22a45d' }}> Create new Account</Text>
         </TouchableOpacity>
         </View>
       </View>
       <View style={styles.formLogin}>
-        <TextInput style={styles.iptAcc} placeholder="Account" />
-        <TextInput style={styles.iptPass} placeholder="Password" />
+        <TextInput onChangeText={x=>setEmail(x)} value={email} style={styles.iptAcc} placeholder="Account" />
+        <TextInput onChangeText={x=>setPassWord(x)} value={passWord} secureTextEntry={true} style={styles.iptPass} placeholder="Password" />
       </View>
       <View style={{ alignItems: 'center' }}>
         <TouchableOpacity style={{ margin: 10 }}>
@@ -46,7 +83,7 @@ export default function Login() {
         </TouchableOpacity>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity
+        <TouchableOpacity onPress={hanldPressLogin}
           style={{
             backgroundColor: '#22a45d',
             width: '90%',
