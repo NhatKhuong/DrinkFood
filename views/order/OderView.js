@@ -20,9 +20,9 @@ export default function OderView(props) {
     }
   });
   const navigation = useNavigation();
-  const hanldPress=()=>{
+  const hanldPress = () => {
     navigation.navigate("OderStatus");
-  }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"#ffff"} />
@@ -47,10 +47,10 @@ export default function OderView(props) {
             return (
               <View style={{ paddingBottom: 10 }}>
                 <View style={styles.itemOrder}>
-                  <Text style={styles.amount}>{item.amount}</Text>
+                  <Text style={styles.amount}>{item.total}</Text>
                   <View style={styles.infoItem}>
-                    <Text style={styles.nameProduct}>{item.productName}</Text>
-                    <Text style={styles.descriptions}>{item.descriptions}</Text>
+                    <Text style={styles.nameProduct}>{item.name}</Text>
+                    <Text style={styles.descriptions}>{item.descrip}</Text>
                   </View>
                   <Text style={styles.textPrice}>
                     <MaterialCommunityIcons
@@ -58,7 +58,7 @@ export default function OderView(props) {
                       size={22}
                       color="#3db072"
                     />
-                    60
+                    {item.total * item.price}
                   </Text>
                 </View>
               </View>
