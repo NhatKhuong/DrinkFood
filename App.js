@@ -9,13 +9,17 @@ import Register from './views/auth/Register';
 import Cart from "./views/cart/Cart";
 import OderView from "./views/order/OderView";
 import Start from './views/auth/Start';
+import Voucher from './views/Voucher';
+import Test from './views/Test';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
       <NavigationContainer>
-          <Stack.Navigator initialRouteName={'Login'} screenOptions={{headerShown:false}}>
-            <Stack.Screen name='Login' component={Login}/>
+          <Stack.Navigator initialRouteName={'Voucher'} screenOptions={{headerShown:false}}>
+          <Stack.Screen name='Voucher' component={Voucher}/>
+              <Stack.Screen name='Login' component={Login}/>
+              <Stack.Screen name='Test' component={Test}/>
               <Stack.Screen name='Register' component={Register}/>
               <Stack.Screen name='Home' component={Home}/>
               <Stack.Screen name='Detail' component={Detail}/>
