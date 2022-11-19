@@ -10,36 +10,36 @@ import styles from "./styles/Cart_Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import CartItem from "./CartItem";
 import { NativeBaseProvider, FlatList } from "native-base";
-import data from "./data/CartData";
-export default function Cart(props) {
+import { getAllOrder } from "../../asysn_storage/order_storage";
+export default function Cart({ props, route, navigation }) {
   const [subTotal, setSubTotal] = useState(0);
   const [listData, setListData] = useState([]);
+
+  const [isLoad, setIsLoad] = useState(false);
   const freeDelivery = 50;
 
   useEffect(() => {
-    let temp = 0;
-    data.map((item) => {
-      temp += item.priceItem;
-      setListData((list) => [
-        ...list,
-        {
-          id: item.id,
-          amount: 1,
-          descriptions: item.descriptions,
-          productName: item.productName,
-          price: item.priceItem,
-        },
-      ]);
+    renderOrder();
+  }, [route.params]);
+
+  const renderOrder = async () => {
+    await getAllOrder();
+    let list = await getAllOrder();
+    setListData(list);
+    let sub = 0;
+    list.forEach((data) => {
+      sub += subTotal + data.total * data.price;
     });
-    setSubTotal(temp);
-  }, []);
+    setIsLoad(true);
+    setSubTotal(sub);
+  };
 
   const plushTotal = (price, id, amount) => {
     const index = listData.findIndex((obj) => {
       return obj.id === id;
     });
     setSubTotal(subTotal + price);
-    listData[index].amount = amount;
+    listData[index].total = amount;
   };
 
   const minusTotal = (price, id, amount) => {
@@ -47,19 +47,26 @@ export default function Cart(props) {
       return obj.id === id;
     });
     setSubTotal(subTotal - price);
-    if (amount != 0) listData[index].amount = amount;
+    if (amount != 0) listData[index].total = amount;
     else {
       // setListData([...listData.slice(0, index), ...listData.slice(index + 1)]);
       setListData(listData.filter((item) => item.id !== id));
     }
   };
 
-  return (
+  return isLoad ? (
     <NativeBaseProvider>
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={"#ffff"} barStyle={"dark-content"} />
         <View style={styles.header}>
-          <TouchableOpacity style={styles.touchableOpacityBack}>
+          <TouchableOpacity
+            style={styles.touchableOpacityBack}
+            onPress={() => {
+              setListData([]);
+              setSubTotal(0);
+              navigation.navigate("Home");
+            }}
+          >
             <Ionicons name="arrow-back-sharp" size={22} color="black" />
           </TouchableOpacity>
           <Text style={styles.textHeader}>My cart</Text>
@@ -69,7 +76,7 @@ export default function Cart(props) {
             overScrollMode="never"
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            data={data}
+            data={listData}
             renderItem={({ item }) => {
               return (
                 <CartItem
@@ -121,7 +128,7 @@ export default function Cart(props) {
           <TouchableOpacity
             style={styles.buttonCheckout}
             onPress={() => {
-              props.navigation.navigate("OderView", {
+              navigation.navigate("OderView", {
                 listData: listData,
                 subTotal: subTotal,
                 freeDelivery: freeDelivery,
@@ -134,5 +141,5 @@ export default function Cart(props) {
         </View>
       </SafeAreaView>
     </NativeBaseProvider>
-  );
+  ) : null;
 }
