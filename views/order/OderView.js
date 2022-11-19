@@ -108,7 +108,7 @@ export default function OderView(props) {
             <Text style={styles.textDetail}>Add more items</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.details}>
+          <TouchableOpacity style={styles.details} onPress={()=>navigation.props.navigate('Voucher')}>
             <Text style={styles.textDetail}>Promo code</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>

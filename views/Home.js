@@ -11,9 +11,10 @@ export default function Home({navigation}) {
     const [items, setItems] = useState([
         { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
         { img:require("../images/coffe2.webp"),descrip:"with chocolate",name: 'Trung Nguyen',price:22.22},
-        { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
-        { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
-        { img:require("../images/bgk.png"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
+        { img:require("../images/coffe1.jpg"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
+        { img:require("../images/coffe2.jpg"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
+        { img:require("../images/coffe3.jpg"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
+        { img:require("../images/coffe3.jpg"),descrip:"with chocolate",name: 'Capuchino',price:22.22},
       ]);
       const amin = useRef(new Animated.Value(0)).current;
       const rotation = amin.interpolate({
