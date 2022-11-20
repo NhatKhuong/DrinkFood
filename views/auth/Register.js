@@ -12,7 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import {initializeApp} from 'firebase/app';
 import {firebaseConfig} from '../../config/firebase_config';
-import {initializeAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {initializeAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native';
 
 export default function Register() {
@@ -26,6 +26,16 @@ export default function Register() {
   const app = initializeApp(firebaseConfig);
   const auth = initializeAuth(app,{
   });
+  const singUpWithEmailAndPassword = async (email,password) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        var user = userCredential.user;
+        console.log(user);
+        sendEmailVerification(user)
+        console.log("done");
+    })
+    return result;
+};
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const hanldPressRegister = ()=>{
     if(email == ""){
@@ -43,23 +53,17 @@ export default function Register() {
         }
         else 
         {
-            createUserWithEmailAndPassword(auth,email,passWord)
-            .then(()=>{
-              signInWithEmailAndPassword(auth,email,passWord)
-              .then(()=>{
-                  Alert.alert("Thông báo", "Đăng ký thành công");
-                  const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
-                  console.log(accessToken);
-                  setEmail("");
-                  setPassWord("");
-                  setPassWordAgain("");
-                  navigation.navigate("Home");
-              })
-                
-            })
-            .catch(error =>{
-                Alert.alert("Thông báo","Email đã tồn tại")
-            })
+            singUpWithEmailAndPassword(email, passWord)
+            .then((user) => {
+              Alert.alert("Thông báo", "Đăng ký thành công, vui lòng kiểm tra Email");
+              setEmail("");
+              setPassWord("");
+              setPassWordAgain("");
+              navigation.navigate("Login");
+          })
+          .catch((error) => {
+            Alert.alert("Thông báo","Email đã tồn tại")
+          });
         }
         
         

@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {initializeApp} from 'firebase/app';
 import {firebaseConfig} from '../../config/firebase_config';
-import {initializeAuth,signInWithEmailAndPassword} from 'firebase/auth';
+import {initializeAuth,signInWithEmailAndPassword, GoogleAuthProvider,signInWithPopup} from 'firebase/auth';
 export default function Login() {
   const navigation = useNavigation();
   const [email,setEmail] = useState("");
@@ -26,6 +26,14 @@ export default function Login() {
     const auth = initializeAuth(app,{
     });
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const loginWithEmailAndPassword = async (email,password) => {
+    console.log(email);
+    console.log(password);
+    return await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const provider = new GoogleAuthProvider();
+
   const hanldPressLogin = ()=>{
       if(email == ""){
         Alert.alert("Thông báo","Email không được rỗng")
@@ -37,9 +45,14 @@ export default function Login() {
         Alert.alert("Thông báo","Password không được rỗng");
       }
       else{
-        signInWithEmailAndPassword(auth,email,passWord)
-        .then(()=>{
-            const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
+        loginWithEmailAndPassword(email,passWord)
+        .then((result)=>{
+
+          if (!result.user.emailVerified) {
+            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+            return;
+          }
+          const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
            console.log(accessToken);
            setEmail("");
            setPassWord("");
@@ -50,6 +63,25 @@ export default function Login() {
         })
       }
     }
+
+    const loginWithGoogle = async () => {
+      const user = await signInWithPopup(auth, provider);
+      return user;
+    };
+
+    const handleLoginWithGoogle = () => {
+      console.log("vao");
+      loginWithGoogle()
+        .then((user) => {
+          console.log(user);
+          var accessToken = "Bear " + user.user.accessToken;
+          console.log(accessToken);
+        })
+        .catch((err) => {
+          console.log(err);
+          
+        });
+    };
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.header}>
@@ -126,7 +158,9 @@ export default function Login() {
             padding: 10,
             borderRadius: 10,
             flexDirection: 'row',
-          }}>
+          }}
+          onPress={handleLoginWithGoogle}
+          >
           <Image
             style={{ width: 25, height: 25, marginLeft: 10 }}
             source={require('./images/logo_google.png')}
