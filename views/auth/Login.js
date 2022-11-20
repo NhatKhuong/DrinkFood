@@ -34,7 +34,11 @@ export default function Login() {
       Alert.alert("Thông báo", "Password không được rỗng");
     } else {
       signInWithEmailAndPassword(auth, email, passWord)
-        .then(() => {
+        .then((result) => {
+          if (!result.user.emailVerified) {
+            alert("Email chưa được xác thực vui lòng kiểm tra hộp thư của bạn");
+            return;
+          }
           const accessToken = `Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
           console.log(accessToken);
           setEmail("");
