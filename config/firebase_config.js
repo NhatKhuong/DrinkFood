@@ -2,7 +2,8 @@
 // import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 export const firebaseConfig = {
   apiKey: "AIzaSyDj76yV0qZ_OQ6Q2MAT_lZVejuCGzkPZsU",
@@ -12,6 +13,7 @@ export const firebaseConfig = {
   messagingSenderId: "43534636591",
   appId: "1:43534636591:web:ddecb11e893e56592598da"
 };
-
+// export const app = initializeApp(firebaseConfig);
+// export const analytics = getAnalytics(app);
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
