@@ -57,14 +57,7 @@ export default function CartItem(props) {
               <Entypo name="plus" size={10} color="#10b34f" />
             </TouchableOpacity>
           </View>
-          <Text style={styles.price}>
-            <MaterialCommunityIcons
-              name="currency-bdt"
-              size={20}
-              color="#4ed384"
-            />
-            {price * amount}
-          </Text>
+          <Text style={styles.price}>{(price * amount).toFixed(2)} đ</Text>
         </View>
       </View>
     </View>

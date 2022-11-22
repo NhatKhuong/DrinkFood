@@ -5,6 +5,7 @@ import Home from "./Home";
 import Cart from "./cart/Cart";
 import { Ionicons } from "@expo/vector-icons";
 import OderView from "./order/OderView";
+import { getAllOrder } from "../asysn_storage/order_storage";
 const Tab = createBottomTabNavigator();
 
 // const TabBarCustomButton = ({ accessibilityState, children, onPress }) => {
@@ -129,11 +130,25 @@ function BottomTabNavigator({ navigation }) {
             />
           ),
         }}
+        listeners={({ navigation, route }) => ({
+          tabPress: async (e) => {
+            let listData;
+            let sub = 0;
+            await getAllOrder().then((list) => {
+              listData = list;
+              list.forEach((data) => {
+                sub += sub + data.total * data.price;
+              });
+            });
+            sub.toFixed(2);
+            navigation.jumpTo("OderView", {
+              listData: listData,
+              subTotal: sub,
+            });
+          },
+        })}
       />
     </Tab.Navigator>
-    // <View>
-    //   <Text>fdsf</Text>
-    // </View>
   );
 }
 export default BottomTabNavigator;

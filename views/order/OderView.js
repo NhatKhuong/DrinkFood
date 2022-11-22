@@ -10,15 +10,15 @@ import { FlatList } from "react-native";
 export default function OderView(props) {
   let [listData, setListData] = useState([]);
   let [subTotal, setSubTotal] = useState(0);
-  let [freeDelivery, setFreeDelivery] = useState(0);
+  let [freeDelivery, setFreeDelivery] = useState(50);
   const route = useRoute();
   useEffect(() => {
     if (route.params != null) {
       setListData(route.params.listData);
       setSubTotal(route.params.subTotal);
-      setFreeDelivery(route.params.freeDelivery);
     }
-  });
+  }, [route.params]);
+
   const navigation = useNavigation();
   const hanldPress = () => {
     navigation.navigate("OderStatus");
@@ -53,12 +53,7 @@ export default function OderView(props) {
                     <Text style={styles.descriptions}>{item.descrip}</Text>
                   </View>
                   <Text style={styles.textPrice}>
-                    <MaterialCommunityIcons
-                      name="currency-bdt"
-                      size={22}
-                      color="#3db072"
-                    />
-                    {item.total * item.price}
+                    {(item.total * item.price).toFixed(2)} đ
                   </Text>
                 </View>
               </View>
@@ -71,44 +66,28 @@ export default function OderView(props) {
         <View style={styles.footerInfoTotal}>
           <View style={styles.footerLine}>
             <Text style={styles.textFooter}>Subtotal:</Text>
-            <Text style={styles.textFooter}>
-              <MaterialCommunityIcons
-                name="currency-bdt"
-                size={20}
-                color="rgba(0,0,0,0.4)"
-              />
-              {subTotal}
-            </Text>
+            <Text style={styles.textFooter}>{subTotal.toFixed(2)} đ</Text>
           </View>
           <View style={styles.footerLine}>
             <Text style={styles.textFooter}>Free & Delivery:</Text>
-            <Text style={styles.textFooter}>
-              <MaterialCommunityIcons
-                name="currency-bdt"
-                size={20}
-                color="rgba(0,0,0,0.4)"
-              />
-              {freeDelivery}
-            </Text>
+            <Text style={styles.textFooter}>{freeDelivery.toFixed(2)} đ</Text>
           </View>
           <View style={styles.footerLine}>
             <Text style={[styles.textFooter, { fontWeight: "bold" }]}>
               Total:
             </Text>
             <Text style={[styles.textFooter, { fontWeight: "bold" }]}>
-              <MaterialCommunityIcons
-                name="currency-bdt"
-                size={20}
-                color="#000"
-              />
-              {freeDelivery + subTotal}
+              {(freeDelivery + subTotal).toFixed(2)} đ
             </Text>
           </View>
           <TouchableOpacity style={styles.details}>
             <Text style={styles.textDetail}>Add more items</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.details} onPress={()=>props.navigation.navigate('Voucher')}>
+          <TouchableOpacity
+            style={styles.details}
+            onPress={() => props.navigation.navigate("Voucher")}
+          >
             <Text style={styles.textDetail}>Promo code</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>

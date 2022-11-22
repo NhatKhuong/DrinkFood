@@ -24,12 +24,14 @@ export default function Cart({ props, route, navigation }) {
 
   const renderOrder = async () => {
     await getAllOrder();
-    let list = await getAllOrder();
-    setListData(list);
     let sub = 0;
-    list.forEach((data) => {
-      sub += subTotal + data.total * data.price;
+    await getAllOrder().then((list) => {
+      setListData(list);
+      list.forEach((data) => {
+        sub += sub + data.total * data.price;
+      });
     });
+    sub.toFixed(2);
     setIsLoad(true);
     setSubTotal(sub);
   };
@@ -38,7 +40,10 @@ export default function Cart({ props, route, navigation }) {
     const index = listData.findIndex((obj) => {
       return obj.id === id;
     });
-    setSubTotal(subTotal + price);
+
+    let t = subTotal + price;
+    t.toFixed(2);
+    setSubTotal(t);
     listData[index].total = amount;
   };
 
@@ -46,7 +51,9 @@ export default function Cart({ props, route, navigation }) {
     const index = listData.findIndex((obj) => {
       return obj.id === id;
     });
-    setSubTotal(subTotal - price);
+    let t = subTotal - price;
+    t.toFixed(2);
+    setSubTotal(t);
     if (amount != 0) listData[index].total = amount;
     else {
       // setListData([...listData.slice(0, index), ...listData.slice(index + 1)]);
@@ -93,35 +100,16 @@ export default function Cart({ props, route, navigation }) {
           <View style={styles.footerInfoTotal}>
             <View style={styles.footerLine}>
               <Text style={styles.textFooter}>Subtotal:</Text>
-              <Text style={styles.textFooter}>
-                <MaterialCommunityIcons
-                  name="currency-bdt"
-                  size={20}
-                  color="rgba(0,0,0,0.4)"
-                />
-                {subTotal}
-              </Text>
+              <Text style={styles.textFooter}>{subTotal.toFixed(2)} đ</Text>
             </View>
             <View style={styles.footerLine}>
               <Text style={styles.textFooter}>Free & Delivery:</Text>
-              <Text style={styles.textFooter}>
-                <MaterialCommunityIcons
-                  name="currency-bdt"
-                  size={20}
-                  color="rgba(0,0,0,0.4)"
-                />
-                {freeDelivery}
-              </Text>
+              <Text style={styles.textFooter}>{freeDelivery.toFixed(2)} đ</Text>
             </View>
             <View style={styles.footerLine}>
               <Text style={styles.textFooter}>Total:</Text>
               <Text style={styles.textFooter}>
-                <MaterialCommunityIcons
-                  name="currency-bdt"
-                  size={20}
-                  color="rgba(0,0,0,0.4)"
-                />
-                {freeDelivery + subTotal}
+                {(freeDelivery + subTotal).toFixed(2)} đ
               </Text>
             </View>
           </View>
@@ -131,8 +119,6 @@ export default function Cart({ props, route, navigation }) {
               navigation.navigate("OderView", {
                 listData: listData,
                 subTotal: subTotal,
-                freeDelivery: freeDelivery,
-                total: freeDelivery + subTotal,
               });
             }}
           >

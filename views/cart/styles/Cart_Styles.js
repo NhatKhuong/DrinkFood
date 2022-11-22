@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     color: "#5ce393",
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 16,
   },
   footer: {
     width: "100%",
