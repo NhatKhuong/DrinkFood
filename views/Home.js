@@ -44,14 +44,14 @@ export default function Home({ navigation }) {
       id: "4",
       img: require("../images/coffe2.jpg"),
       descrip: "with chocolate",
-      name: "Capuchino",
+      name: "Trung Nguyen",
       price: 22.22,
     },
     {
       id: "5",
       img: require("../images/coffe3.jpg"),
       descrip: "with chocolate",
-      name: "Capuchino",
+      name: "StarBuck",
       price: 22.22,
     },
     {
@@ -62,6 +62,9 @@ export default function Home({ navigation }) {
       price: 22.22,
     },
   ]);
+
+  const [text, setText] = useState("");
+
   const amin = useRef(new Animated.Value(0)).current;
   const rotation = amin.interpolate({
     inputRange: [-1, 1],
@@ -172,6 +175,17 @@ export default function Home({ navigation }) {
         }}
       >
         <TextInput
+          value={text}
+          onChangeText={(value) => {
+            setText(value);
+
+            let data = items;
+            data.filter((element) => {
+              return !element.name.includes(value);
+            });
+
+            console.log(data);
+          }}
           style={{
             borderWidth: 1,
             flex: 1,
