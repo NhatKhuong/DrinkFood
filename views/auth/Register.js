@@ -30,9 +30,7 @@ export default function Register() {
     const result = await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         var user = userCredential.user;
-        console.log(user);
         sendEmailVerification(user)
-        console.log("done");
     })
     return result;
 };

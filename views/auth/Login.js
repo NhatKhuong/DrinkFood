@@ -27,8 +27,6 @@ export default function Login() {
     });
   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const loginWithEmailAndPassword = async (email,password) => {
-    console.log(email);
-    console.log(password);
     return await signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -53,7 +51,6 @@ export default function Login() {
             return;
           }
           const accessToken =`Bearer ${auth.currentUser.stsTokenManager.accessToken}`;
-           console.log(accessToken);
            setEmail("");
            setPassWord("");
            navigation.navigate("Main");
@@ -70,12 +67,9 @@ export default function Login() {
     };
 
     const handleLoginWithGoogle = () => {
-      console.log("vao");
       loginWithGoogle()
         .then((user) => {
-          console.log(user);
-          var accessToken = "Bear " + user.user.accessToken;
-          console.log(accessToken);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -111,7 +105,7 @@ export default function Login() {
         <TextInput onChangeText={x=>setPassWord(x)} value={passWord} secureTextEntry={true} style={styles.iptPass} placeholder="Password" />
       </View>
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity style={{ margin: 10 }}>
+        <TouchableOpacity style={{ margin: 10 }} onPress={()=>{navigation.navigate("ForgotPassword")}}>
           <Text style={{ color: 'black' }}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
