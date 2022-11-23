@@ -18,50 +18,96 @@ import { FlatGrid } from "react-native-super-grid";
 import { saveObjectOrder } from "../asysn_storage/order_storage";
 
 export default function Home({ navigation }) {
-  const [items, setItems] = useState([
-    {
-      id: "1",
-      img: require("../images/bgk.png"),
-      descrip: "with chocolate",
-      name: "Capuchino",
-      price: 22.22,
-    },
-    {
-      id: "2",
-      img: require("../images/coffe2.webp"),
-      descrip: "with chocolate",
-      name: "Trung Nguyen",
-      price: 22.22,
-    },
-    {
-      id: "3",
-      img: require("../images/coffe1.jpg"),
-      descrip: "with chocolate",
-      name: "Capuchino",
-      price: 22.22,
-    },
-    {
-      id: "4",
-      img: require("../images/coffe2.jpg"),
-      descrip: "with chocolate",
-      name: "Trung Nguyen",
-      price: 22.22,
-    },
-    {
-      id: "5",
-      img: require("../images/coffe3.jpg"),
-      descrip: "with chocolate",
-      name: "StarBuck",
-      price: 22.22,
-    },
-    {
-      id: "6",
-      img: require("../images/coffe3.jpg"),
-      descrip: "with chocolate",
-      name: "Capuchino",
-      price: 22.22,
-    },
-  ]);
+  // const [items, setItems] = useState([
+  //   {
+  //     id: "1",
+  //     img: require("../images/bgk.png"),
+  //     descrip: "with chocolate",
+  //     name: "Capuchino",
+  //     price: 22.22,
+  //   },
+  //   {
+  //     id: "2",
+  //     img: require("../images/coffe2.webp"),
+  //     descrip: "with chocolate",
+  //     name: "Trung Nguyen",
+  //     price: 22.22,
+  //   },
+  //   {
+  //     id: "3",
+  //     img: require("../images/coffe1.jpg"),
+  //     descrip: "with chocolate",
+  //     name: "Capuchino",
+  //     price: 22.22,
+  //   },
+  //   {
+  //     id: "4",
+  //     img: require("../images/coffe2.jpg"),
+  //     descrip: "with chocolate",
+  //     name: "Trung Nguyen",
+  //     price: 22.22,
+  //   },
+  //   {
+  //     id: "5",
+  //     img: require("../images/coffe3.jpg"),
+  //     descrip: "with chocolate",
+  //     name: "StarBuck",
+  //     price: 22.22,
+  //   },
+  //   {
+  //     id: "6",
+  //     img: require("../images/coffe3.jpg"),
+  //     descrip: "with chocolate",
+  //     name: "Capuchino",
+  //     price: 22.22,
+  //   },
+  // ]);
+
+ let datas = [
+  {
+        id: "1",
+        img: require("../images/bgk.png"),
+        descrip: "Starbucks",
+        name: "Capuchino",
+        price: 22.22,
+      },
+      {
+        id: "2",
+        img: require("../images/coffe2.webp"),
+        descrip: "Lavazza",
+        name: "Trung Nguyen",
+        price: 22.22,
+      },
+      {
+        id: "3",
+        img: require("../images/coffe1.jpg"),
+        descrip: "Lavazza",
+        name: "Capuchino",
+        price: 22.22,
+      },
+      {
+        id: "4",
+        img: require("../images/coffe2.jpg"),
+        descrip: "Starbucks",
+        name: "Trung Nguyen",
+        price: 22.22,
+      },
+      {
+        id: "5",
+        img: require("../images/coffe3.jpg"),
+        descrip: "Highlands",
+        name: "StarBuck",
+        price: 22.22,
+      },
+      {
+        id: "6",
+        img: require("../images/coffe3.jpg"),
+        descrip: "Highlands",
+        name: "Capuchino",
+        price: 22.22,
+      },
+ ]
+ const [items, setItems] = useState(datas)
 
   const [text, setText] = useState("");
 
@@ -70,6 +116,21 @@ export default function Home({ navigation }) {
     inputRange: [-1, 1],
     outputRange: ["-20deg", "20deg"],
   });
+
+  function filterItems(arr, query) {
+    return arr.filter((el) => el.name.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  function filtertab(a){
+    let data = datas;
+    if(a == 1){
+      data = datas.filter((el) => el.descrip == "Highlands");
+    } else if(a ==2){
+      data = datas.filter((el) => el.descrip == "Starbucks");
+    }
+    setItems(data);
+  }
+
   const hanldMove = () => {
     Animated.loop(
       Animated.sequence([
@@ -179,12 +240,14 @@ export default function Home({ navigation }) {
           onChangeText={(value) => {
             setText(value);
 
-            let data = items;
-            data.filter((element) => {
-              return !element.name.includes(value);
-            });
+            // let data = items;
+            // data.filter((element) => {
+            //   return element.name === value;
+            //    return arr.filter((el) => el.toLowerCase().includes(query.toLowerCase()));
+            // });
 
-            console.log(data);
+            let data = filterItems(datas,value)
+            setItems(data)
           }}
           style={{
             borderWidth: 1,
@@ -236,6 +299,7 @@ export default function Home({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={()=>filtertab(0)}
         >
           <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
             All
@@ -251,9 +315,10 @@ export default function Home({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={()=>filtertab(1)}
         >
           <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
-            Fast Food
+            Highlands
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -266,9 +331,10 @@ export default function Home({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={()=>filtertab(2)}
         >
           <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
-            Drink
+            StarBuck
           </Text>
         </TouchableOpacity>
       </View>
@@ -294,7 +360,7 @@ export default function Home({ navigation }) {
               }}
               source={item.img}
             />
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 16, fontWeight: "bold", color:"#fff" }}>
               {item.name}
             </Text>
             <Text style={{ color: "#c67c4e", fontSize: 14 }}>

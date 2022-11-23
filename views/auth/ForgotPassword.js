@@ -1,4 +1,4 @@
-import { View,Text,TouchableOpacity,TextInput, Alert, StyleSheet } from "react-native";
+import { View,Text,TouchableOpacity,TextInput, Alert, StyleSheet, Dimensions,ScrollView, ImageBackground } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
@@ -7,6 +7,14 @@ import { useNavigation } from "@react-navigation/native";
 import{initializeAuth,sendPasswordResetEmail} from 'firebase/auth';
 import {initializeApp} from 'firebase/app';
 import {firebaseConfig} from '../../config/firebase_config';
+const images = [
+    'https://wallpapercrafter.com/th800/303544-Food-Coffee-Phone-Wallpaper.jpg',
+    'https://media.istockphoto.com/photos/steaming-coffee-or-tea-cup-on-dark-background-with-reflection-picture-id955657556?k=20&m=955657556&s=612x612&w=0&h=f3gkdTJhDa0uCppZWXYpTfxKyz-gnSu5IAjY9BaWdMQ=',
+    'https://images.unsplash.com/photo-1543233604-3baca4d35513?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NXx8fGVufDB8fHx8&w=1000&q=80',
+  ];
+  
+  const WIDTH = Dimensions.get('window').width;
+  const HEIGHT = Dimensions.get('window').height;
 function ForgotPassword(){
     
     const [email,setEmail] = useState("");
@@ -38,19 +46,46 @@ function ForgotPassword(){
         }
        
     }
+
+    const [imgActive, setImgActive] = useState(0);
+
+   const onchange = (nativeEvent) => {
+      if (nativeEvent) {
+        const slide = Math.ceil(
+          nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+        );
+        if (slide != imgActive) {
+          setImgActive(slide);
+        }
+      }
+    };
     return (
         <View style={styles.container}>
-             <View style={styles.containerTabBar}>
+          
+            <View style={styles.wrap}>
+          <ScrollView
+            onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            horizontal
+            style={styles.wrap}>
+            {images.map((e, index) => (
+              <ImageBackground
+                key={e}
+                resizeMode="stretch"
+                style={styles.wrap}
+                source={{ uri: e }}
+              >
+                <View>
+                     <View style={styles.containerTabBar}>
                     <TouchableOpacity onPress={hanldPressDashBoard} style={{  paddingLeft:10,paddingRight:10,justifyContent:'center',paddingTop:10,}} >
-                        <Ionicons name="arrow-back" size={30} color="#000" />
+                        <Ionicons name="arrow-back" size={30} color="#fff" />
                     </TouchableOpacity>
                     <View style={{width:"73%",justifyContent:'center',paddingTop:10,alignItems:'center'}}>
-                        <Text style={{fontSize:22,}}>Forgot Password</Text>
+                        <Text style={{fontSize:22,color:"#fff"}}>Forgot Password</Text>
                     </View>
             </View>
-            <View style={styles.containerText}>
-                <Text style={{fontSize:18,}}>Vui lòng nhập Email để lấy lại mật khẩu</Text>
-            </View>
+           
             <View style={styles.containerInput}>
                 <TextInput onChangeText={x=>setEmail(x)} value={email} style={styles.iptName} placeholder="Email Address" />
             </View>
@@ -60,13 +95,26 @@ function ForgotPassword(){
                     <AntDesign name="arrowright" size={24} color="white" />
                 </TouchableOpacity>
             </View>
+                </View>
+              </ImageBackground>
+            ))}
+          </ScrollView>
+          <View style={styles.warpDot}>
+            {images.map((e, index) => (
+              <Text
+                key={e}
+                style={imgActive == index ? styles.dotActive : styles.dot}>
+                ●
+              </Text>
+            ))}
+          </View>
+        </View>
         </View>
     );
 }
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'#fff'
     },
     
     containerTabBar:{
@@ -109,5 +157,24 @@ const styles = StyleSheet.create({
         color: '#787878',
         borderRadius: 10,
     },
+    wrap: {
+        width: WIDTH,
+        height: HEIGHT,
+      },
+      
+      warpDot: {
+        position: 'absolute',
+        bottom: 0,
+        flexDirection: 'row',
+        alignSelf: 'center',
+      },
+      dotActive: {
+        margin: 3,
+        color: 'white',
+      },
+      dot: {
+        margin: 3,
+        color: 'white',
+      },
 });
 export default ForgotPassword;
