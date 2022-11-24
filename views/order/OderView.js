@@ -16,6 +16,13 @@ export default function OderView(props) {
     if (route.params != null) {
       setListData(route.params.listData);
       setSubTotal(route.params.subTotal);
+
+      // if (route.params.discount2 !== 0) {
+      //   console.log(route.params.discount2);
+      //   setSubTotal(
+      //     route.params.discount2 == 20 ? subTotal - 20 : subTotal - 30
+      //   );
+      // }
     }
   }, [route.params]);
 

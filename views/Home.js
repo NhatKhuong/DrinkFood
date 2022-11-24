@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Animated,
+  Modal,
+  TouchableNativeFeedback,
 } from "react-native";
 import React, { Component, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,6 +18,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { FlatGrid } from "react-native-super-grid";
 import { saveObjectOrder } from "../asysn_storage/order_storage";
+import Menu from "./auth/Menu";
 
 export default function Home({ navigation }) {
   const [items, setItems] = useState([
@@ -64,12 +67,18 @@ export default function Home({ navigation }) {
   ]);
 
   const [text, setText] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const amin = useRef(new Animated.Value(0)).current;
   const rotation = amin.interpolate({
     inputRange: [-1, 1],
     outputRange: ["-20deg", "20deg"],
   });
+
+  const handleCloseModal = () => {
+    setVisible(false);
+  };
+
   const hanldMove = () => {
     Animated.loop(
       Animated.sequence([
@@ -134,9 +143,14 @@ export default function Home({ navigation }) {
           justifyContent: "space-between",
         }}
       >
-        <View style={{ borderWidth: 1, borderRadius: 5, borderColor: "#fff" }}>
+        <TouchableOpacity
+          style={{ borderWidth: 1, borderRadius: 5, borderColor: "#fff" }}
+          onPress={() => {
+            setVisible(true);
+          }}
+        >
           <Ionicons name="menu-outline" size={24} color="#fff" />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={hanldMove}>
           <Animated.View
             style={{
@@ -327,6 +341,17 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         )}
       />
+      <Modal transparent={true} visible={visible} animationType={"none"}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(0,0,0,0.2)",
+            width: 180,
+          }}
+        >
+          <Menu onPress={handleCloseModal} navigation={navigation} />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }

@@ -59,6 +59,16 @@ export const getAllOrder = async () => {
   return new_listOrder;
 };
 
+// export const saveListOrder = async (value) => {
+//   try {
+//     value.forEach((item) => {
+//       removeData(item.id);
+//     });
+//     const jsonValue = JSON.stringify(value);
+//     await AsyncStorage.setItem(value.id, jsonValue);
+//   } catch (e) {}
+// };
+
 export const removeData = async (value) => {
   try {
     await AsyncStorage.removeItem(value);

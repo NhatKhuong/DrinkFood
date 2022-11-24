@@ -16,8 +16,8 @@ import { Radio, NativeBaseProvider, Center } from "native-base";
 export default function Voucher({ navigation }) {
   const [discount, setDiscount] = useState(0);
   const [discount2, setDiscount2] = useState(0);
-  console.log(discount);
-  console.log(discount2);
+  // console.log(discount);
+  // console.log(discount2);
   return (
     <NativeBaseProvider>
       <View
@@ -228,7 +228,7 @@ export default function Voucher({ navigation }) {
                     justifyContent: "center",
                   }}
                 >
-                  <Radio value="15" my={2} style={{ width: 20, height: 20 }}>
+                  <Radio value="20" my={2} style={{ width: 20, height: 20 }}>
                     <Text style={{ opacity: 0 }}>a</Text>
                   </Radio>
                 </View>
@@ -275,7 +275,7 @@ export default function Voucher({ navigation }) {
                     justifyContent: "center",
                   }}
                 >
-                  <Radio value="10" my={2} style={{ width: 20, height: 20 }}>
+                  <Radio value="30" my={2} style={{ width: 20, height: 20 }}>
                     <Text style={{ opacity: 0 }}>a</Text>
                   </Radio>
                 </View>
@@ -295,12 +295,12 @@ export default function Voucher({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() =>
+          onPress={() => {
             navigation.navigate("OderView", {
-              discount: discount,
-              discount2: discount2,
-            })
-          }
+              discount: discount ? discount : 0,
+              discount2: discount2 ? discount2 : 0,
+            });
+          }}
         >
           <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
             Áp dụng

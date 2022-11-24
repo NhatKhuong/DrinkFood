@@ -15,13 +15,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Menu({ navigation }) {
+export default function Menu(props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"light-content"} backgroundColor="black" />
 
       <View style={styles.box}>
-        <TouchableOpacity style={{}}>
+        <TouchableOpacity onPress={props.onPress}>
           <Ionicons name="chevron-back" size={25} color="white" />
         </TouchableOpacity>
         <View style={{ width: "60%", marginTop: 10 }}>
@@ -57,6 +57,7 @@ export default function Menu({ navigation }) {
               justifyContent: "center",
               flexDirection: "row",
             }}
+            onPress={() => props.navigation.navigate("OderView")}
           >
             <FontAwesome5 name="shopping-cart" size={20} color="white" />
             <Text
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+    paddingLeft: 15,
   },
   header: {
     flex: 0.05,

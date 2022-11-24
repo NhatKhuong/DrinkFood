@@ -186,7 +186,7 @@ export default function Detail({ navigation }) {
             Total Price
           </Text>
           <Text style={{ color: "#2cc167", fontSize: 18, fontWeight: "bold" }}>
-            100,000 VND
+            {(amount * item.price).toFixed(2)} VND
           </Text>
         </View>
         <View>
