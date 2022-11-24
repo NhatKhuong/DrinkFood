@@ -18,7 +18,7 @@ function OderManager({ navigation }) {
           img: require("../../images/bgk.png"),
           descrip: "Starbucks",
           name: "Capuchino",
-          price: 22.22,
+          price: 60,
           total: 1,
         },
         {
@@ -26,7 +26,7 @@ function OderManager({ navigation }) {
           img: require("../../images/coffe2.webp"),
           descrip: "Lavazza",
           name: "Trung Nguyen",
-          price: 22.22,
+          price: 50,
           total: 2,
         },
       ],
@@ -38,7 +38,7 @@ function OderManager({ navigation }) {
           img: require("../../images/bgk.png"),
           descrip: "Starbucks",
           name: "Capuchino",
-          price: 22.22,
+          price: 60,
           total: 2,
         },
         {
@@ -46,7 +46,7 @@ function OderManager({ navigation }) {
           img: require("../../images/coffe2.webp"),
           descrip: "Lavazza",
           name: "Trung Nguyen",
-          price: 22.22,
+          price: 50,
           total: 1,
         },
       ],
@@ -99,7 +99,7 @@ function OderManager({ navigation }) {
                   fontWeight: "bold",
                 }}
               >
-                Oder 1
+                {/* Oder 1 */}
               </Text>
               <Text style={{ fontSize: 15, fontWeight: "500", opacity: 0.7 }}>
                 Total amount: 3
@@ -128,7 +128,8 @@ function OderManager({ navigation }) {
             onPress={() => {
               navigation.navigate("OderView2", {
                 listData: datas[1].data,
-                subTotal: 116.66,
+                subTotal: 150,
+                delivery:0,
               });
             }}
             style={{
@@ -154,16 +155,16 @@ function OderManager({ navigation }) {
                   fontWeight: "bold",
                 }}
               >
-                Oder 2
+                {/* Oder 2 */}
               </Text>
               <Text style={{ fontSize: 15, fontWeight: "500", opacity: 0.7 }}>
                 Total amount: 3
               </Text>
               <Text style={{ fontSize: 15, fontWeight: "500", opacity: 0.7 }}>
-                Free & Delivery: 50.000 đ
+                Free & Delivery: 0 đ
               </Text>
               <Text style={{ fontSize: 15, fontWeight: "500", opacity: 0.7 }}>
-                Total price: 116,66 đ
+                Total price: 150000 đ
               </Text>
               <Text
                 style={{

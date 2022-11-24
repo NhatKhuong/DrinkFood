@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Keyboard } from 'react-native';
 import {
   View,
   Text,
@@ -35,8 +36,8 @@ const HEIGHT = Dimensions.get("window").height;
 
 export default function Login() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [email, setEmail] = useState("nhatkhuong2001@gmail.com");
+  const [passWord, setPassWord] = useState("12345678");
   const hanldPress = () => {
     navigation.navigate("Register");
   };
@@ -156,6 +157,7 @@ export default function Login() {
                     value={email}
                     style={styles.iptAcc}
                     placeholder="Account"
+                    onPressIn={Keyboard.dismiss}
                   />
                   <TextInput
                     onChangeText={(x) => setPassWord(x)}

@@ -24,7 +24,7 @@ export default function Menu(props) {
         <TouchableOpacity onPress={props.onPress}>
           <Ionicons name="chevron-back" size={25} color="white" />
         </TouchableOpacity>
-        <View style={{ width: "60%", marginTop: 10 }}>
+        <View style={{ width: "60%", marginTop: 10}}>
           <TouchableOpacity
             style={{
               backgroundColor: "black",
@@ -42,6 +42,7 @@ export default function Menu(props) {
                 color: "white",
                 fontSize: 16,
                 marginLeft: 20,
+              
               }}
             >
               Profile
@@ -153,6 +154,7 @@ export default function Menu(props) {
               justifyContent: "center",
               flexDirection: "row",
             }}
+            onPress={()=>props.navigation.navigate("Login")}
           >
             <Entypo name="log-out" size={20} color="white" />
             <Text
@@ -177,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     paddingLeft: 15,
+    opacity:0.6,
   },
   header: {
     flex: 0.05,

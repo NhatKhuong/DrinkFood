@@ -11,19 +11,36 @@ import { Image } from "react-native";
 export default function OderView(props) {
   let [listData, setListData] = useState([]);
   let [subTotal, setSubTotal] = useState(0);
+  let [subDiscount, setSubDiscount] = useState(0);
+  let [subDiscount2, setSubDiscount2] = useState(0);
   let [freeDelivery, setFreeDelivery] = useState(50);
   const route = useRoute();
   useEffect(() => {
+    setSubTotal(0)
+    setFreeDelivery(50)
     if (route.params != null) {
       setListData(route.params.listData);
       setSubTotal(route.params.subTotal);
+      setSubTotal(route.params.subTotal);
 
-      // if (route.params.discount2 !== 0) {
-      //   console.log(route.params.discount2);
-      //   setSubTotal(
-      //     route.params.discount2 == 20 ? subTotal - 20 : subTotal - 30
-      //   );
-      // }
+      if(route.params.change){
+        console.log("change");
+
+        if (route.params.discount !== 0) {
+          setSubDiscount(route.params.discount)
+          console.log(route.params.discount2);
+          setFreeDelivery(0)
+        }
+  
+        if (route.params.discount2 !== 0) {
+          console.log(route.params.discount2);
+          console.log(subTotal);
+          setSubTotal(
+            subTotal-route.params.discount2
+          );
+        }
+      }
+
     }
   }, [route.params]);
 

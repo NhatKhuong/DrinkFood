@@ -12,6 +12,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { useState } from "react";
 import { Radio, NativeBaseProvider, Center } from "native-base";
+import { getAllOrder } from "../asysn_storage/order_storage";
 
 export default function Voucher({ navigation }) {
   const [discount, setDiscount] = useState(0);
@@ -295,13 +296,27 @@ export default function Voucher({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => {
-            navigation.navigate("OderView", {
-              discount: discount ? discount : 0,
-              discount2: discount2 ? discount2 : 0,
-            });
+          onPress={ async () => {
+            let listData;
+              let sub = 0;
+              await getAllOrder().then((list) => {
+                listData = list;
+                list.forEach((data) => {
+                  sub += data.total * data.price;
+                });
+              });
+              sub.toFixed(2);
+              console.log(sub);
+              navigation.navigate("OderView", {
+                listData: listData,
+                subTotal: sub,
+                discount: discount,
+                discount2: discount2,
+                change: (discount !== 0 || discount2 !== 0) ? true : false,
+              });
           }}
         >
+          
           <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
             Áp dụng
           </Text>

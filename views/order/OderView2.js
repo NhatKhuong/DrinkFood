@@ -18,6 +18,7 @@ export default function OderView2(props) {
     if (route.params != null) {
       setListData(route.params.listData);
       setSubTotal(route.params.subTotal);
+      setFreeDelivery(route.params.delivery)
       setIsLoad(true);
     }
   }, [route.params]);
