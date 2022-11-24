@@ -8,22 +8,17 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native";
 import { Image } from "react-native";
-export default function OderView(props) {
+export default function OderView2(props) {
   let [listData, setListData] = useState([]);
   let [subTotal, setSubTotal] = useState(0);
+  let [isLoad, setIsLoad] = useState(false);
   let [freeDelivery, setFreeDelivery] = useState(50);
   const route = useRoute();
   useEffect(() => {
     if (route.params != null) {
       setListData(route.params.listData);
       setSubTotal(route.params.subTotal);
-
-      // if (route.params.discount2 !== 0) {
-      //   console.log(route.params.discount2);
-      //   setSubTotal(
-      //     route.params.discount2 == 20 ? subTotal - 20 : subTotal - 30
-      //   );
-      // }
+      setIsLoad(true);
     }
   }, [route.params]);
 
@@ -31,19 +26,19 @@ export default function OderView(props) {
   const hanldPress = () => {
     navigation.navigate("OderStatus");
   };
-  return (
+  return isLoad ? (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"#ffff"} />
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.touchableOpacityBack}
           onPress={() => {
-            props.navigation.navigate("Cart");
+            props.navigation.navigate("OderManager");
           }}
         >
           <Ionicons name="chevron-back" size={30} color="black" />
         </TouchableOpacity>
-        <Text style={styles.textHeader}>Your Order</Text>
+        <Text style={styles.textHeader}>Order Detail</Text>
       </View>
       <View style={styles.body}>
         <FlatList
@@ -90,22 +85,27 @@ export default function OderView(props) {
               {(freeDelivery + subTotal).toFixed(2)} đ
             </Text>
           </View>
-          <TouchableOpacity style={styles.details}>
+          <TouchableOpacity style={styles.details} disabled>
             <Text style={styles.textDetail}>Add more items</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.details}
+            disabled
             onPress={() => props.navigation.navigate("Voucher")}
           >
             <Text style={styles.textDetail}>Promo code</Text>
             <Ionicons name="chevron-forward" size={24} color="#3db072" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={hanldPress} style={styles.buttonContinue}>
+          <TouchableOpacity
+            onPress={hanldPress}
+            disabled
+            style={styles.buttonContinue}
+          >
             <Text style={styles.textContinue}>Continue</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
-  );
+  ) : null;
 }

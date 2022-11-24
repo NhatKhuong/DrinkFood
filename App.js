@@ -14,6 +14,7 @@ import BottomTabNavigator from "./views/BottomTabNavigator";
 import Cart from "./views/cart/Cart";
 import ForgotPassword from "./views/auth/ForgotPassword";
 import Menu from "./views/auth/Menu";
+import OderView2 from "./views/order/OderView2";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -32,6 +33,8 @@ export default function App() {
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Menu" component={Menu} />
           <Stack.Screen name="Voucher" component={Voucher} />
+          <Stack.Screen name="OderView2" component={OderView2} />
+          <Stack.Screen name="OderView" component={OderView} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         </Stack.Group>
         <Stack.Group>

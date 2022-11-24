@@ -57,7 +57,10 @@ export default function Menu(props) {
               justifyContent: "center",
               flexDirection: "row",
             }}
-            onPress={() => props.navigation.navigate("OderView")}
+            onPress={() => {
+              props.onPress();
+              props.navigation.navigate("OderView");
+            }}
           >
             <FontAwesome5 name="shopping-cart" size={20} color="white" />
             <Text

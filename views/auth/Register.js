@@ -8,12 +8,24 @@ import {
   SafeAreaView,
   TextInput,
   Alert,
+  Dimensions,
+  ScrollView,
+  ImageBackground
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {initializeApp} from 'firebase/app';
 import {firebaseConfig} from '../../config/firebase_config';
 import {initializeAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native';
+
+const images = [
+  'https://wallpapercrafter.com/th800/303544-Food-Coffee-Phone-Wallpaper.jpg',
+  'https://media.istockphoto.com/photos/steaming-coffee-or-tea-cup-on-dark-background-with-reflection-picture-id955657556?k=20&m=955657556&s=612x612&w=0&h=f3gkdTJhDa0uCppZWXYpTfxKyz-gnSu5IAjY9BaWdMQ=',
+  'https://images.unsplash.com/photo-1543233604-3baca4d35513?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NXx8fGVufDB8fHx8&w=1000&q=80',
+];
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 export default function Register() {
   const navigation = useNavigation();
@@ -68,103 +80,92 @@ export default function Register() {
     }
 }
 
+const [imgActive, setImgActive] = useState(0);
+
+const onchange = (nativeEvent) => {
+  if (nativeEvent) {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
+    );
+    if (slide != imgActive) {
+      setImgActive(slide);
+    }
+  }
+};
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={{ fontWeight: 'bold', marginTop: 5, color: 'black' }}>
-          Sign up
-        </Text>
-        <Text></Text>
-      </View>
-      <View style={styles.nav}>
-        <Text style={{ fontSize: 30, color: 'black' }}> Create Account </Text>
-        <Text style={{ color: 'black', paddingLeft: 10 }}>
-          Enter your Name, Email and Password
-        </Text>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={{ color: 'black', paddingLeft: 10 }}>
-            for sign up, Or
-          </Text>
-          <TouchableOpacity onPress={hanldPress}>
-            <Text style={{ color: '#22a45d' }}> Already have Account?</Text>
-          </TouchableOpacity>
+      <View style={styles.wrap}>
+          <ScrollView
+            onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            horizontal
+            style={styles.wrap}>
+            {images.map((e, index) => (
+              <ImageBackground
+                key={e}
+                resizeMode="stretch"
+                style={styles.wrap}
+                source={{ uri: e }}
+              >
+                <View style={{justifyContent:'center',width:"100%",flex:1}}>
+
+                            <View style={styles.header}>
+                    <TouchableOpacity>
+                      {/* <Ionicons name="chevron-back" size={24} color="white" /> */}
+                    </TouchableOpacity>
+                    <Text style={{ fontWeight: 'bold', marginTop: 5, color: 'white' }}>
+                      Sign up
+                    </Text>
+                    <Text></Text>
+                  </View>
+                  <View style={styles.formRegis}>
+                    <TextInput onChangeText={x=>setEmail(x)} value={email} style={styles.iptName} placeholder="Email Address" />
+                    <TextInput onChangeText={x=>setPassWord(x)} value={passWord} secureTextEntry={true} style={styles.iptAcc} placeholder="Password" />
+                    <TextInput onChangeText={x=>setPassWordAgain(x)} value={passWordAgain} secureTextEntry={true} style={styles.iptPass} placeholder="Password Again" />
+                  </View>
+
+                  <View style={{ alignItems: 'center', marginTop: 30 }}>
+                    <TouchableOpacity onPress={hanldPressRegister}
+                      style={{
+                        backgroundColor: '#0087cd',
+                        width: '90%',
+                        alignItems: 'center',
+                        padding: 10,
+                        borderRadius: 10,
+                      }}>
+                      <Text style={{ color: 'white' }}>SIGN UP</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 80 }}>
+                    <Text style={{ color: 'white' }}>Already have account?</Text>
+                    <TouchableOpacity onPress={hanldPress}>
+                      <Text
+                        style={{
+                          marginLeft: 10,
+                          color: '#0087cd',
+                        }}>
+                        Sign in
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </ImageBackground>
+            ))}
+          </ScrollView>
+          <View style={styles.warpDot}>
+            {images.map((e, index) => (
+              <Text
+                key={e}
+                style={imgActive == index ? styles.dotActive : styles.dot}>
+                ●
+              </Text>
+            ))}
+          </View>
         </View>
-      </View>
-      <View style={styles.formRegis}>
-        <TextInput onChangeText={x=>setEmail(x)} value={email} style={styles.iptName} placeholder="Email Address" />
-        <TextInput onChangeText={x=>setPassWord(x)} value={passWord} secureTextEntry={true} style={styles.iptAcc} placeholder="Password" />
-        <TextInput onChangeText={x=>setPassWordAgain(x)} value={passWordAgain} secureTextEntry={true} style={styles.iptPass} placeholder="Password Again" />
-      </View>
-
-      <View style={{ alignItems: 'center', marginTop: 15 }}>
-        <TouchableOpacity onPress={hanldPressRegister}
-          style={{
-            backgroundColor: '#22a45d',
-            width: '90%',
-            alignItems: 'center',
-            padding: 10,
-            borderRadius: 10,
-          }}>
-          <Text style={{ color: 'white' }}>SIGN UP</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 80 }}>
-        <Text style={{ color: 'black' }}>Already have account?</Text>
-        <TouchableOpacity onPress={hanldPress}>
-          <Text
-            style={{
-              marginLeft: 10,
-              color: '#22a45d',
-            }}>
-            Sign in
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ alignItems: 'center', marginTop: 10 }}>
-        <Text style={{ color: 'black' }}>OR</Text>
-      </View>
-      <View style={{ alignItems: 'center', marginTop: 10 }}>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            backgroundColor: '#395998',
-            width: '90%',
-            padding: 10,
-            borderRadius: 10,
-            flexDirection: 'row',
-          }}>
-          <Image
-            style={{ width: 30, height: 30, marginLeft: 10 }}
-            source={require('./images/face_logo.jpg')}
-          />
-          <Text style={{ color: 'white', marginLeft: 35 }}>
-            CONNECT WITH FACEBOOK
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ alignItems: 'center', marginTop: 10 }}>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            backgroundColor: '#4285f4',
-            width: '90%',
-            padding: 10,
-            borderRadius: 10,
-            flexDirection: 'row',
-          }}>
-          <Image
-            style={{ width: 30, height: 30, marginLeft: 10 }}
-            source={require('./images/logo_google.png')}
-          />
-          <Text style={{ color: 'white', marginLeft: 35 }}>
-            CONNECT WITH GOOGLE
-          </Text>
-        </TouchableOpacity>
-      </View>
+     
     </SafeAreaView>
   );
 }
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     height: '100%',
     // backgroundColor:'#ffe4c4',
     backgroundColor: 'white',
-    marginTop: 50,
   },
   header: {
     flexDirection: 'row',
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 40,
     paddingLeft: 10,
-    marginTop: 10,
+    marginTop: 20,
     color: '#787878',
     borderRadius: 10,
   },
@@ -205,15 +205,34 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#787878',
     borderRadius: 10,
-    marginTop: 10,
+    marginTop: 30,
   },
   iptPass: {
     backgroundColor: '#fafbfa',
     width: '90%',
     height: 40,
     paddingLeft: 10,
-    marginTop: 10,
+    marginTop: 30,
     color: '#787878',
     borderRadius: 10,
+  },
+  wrap: {
+    width: WIDTH,
+    height: HEIGHT,
+  },
+  
+  warpDot: {
+    position: 'absolute',
+    bottom: 0,
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  dotActive: {
+    margin: 3,
+    color: 'white',
+  },
+  dot: {
+    margin: 3,
+    color: 'white',
   },
 });

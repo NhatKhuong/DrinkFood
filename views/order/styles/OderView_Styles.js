@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     color: "#3db072",
   },
   infoItem: {
-    width: "60%",
+    width: "50%",
     height: 50,
     justifyContent: "space-around",
   },
@@ -108,6 +108,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#e9f6ef",
     opacity: 0.9,
+  },
+  imageItem: {
+    width: 55,
+    height: 55,
   },
 });
 

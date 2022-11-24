@@ -28,7 +28,7 @@ export default function Cart({ props, route, navigation }) {
     await getAllOrder().then((list) => {
       setListData(list);
       list.forEach((data) => {
-        sub += sub + data.total * data.price;
+        sub += data.total * data.price;
       });
     });
     sub.toFixed(2);
